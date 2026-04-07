@@ -33,33 +33,39 @@
             display: flex;
             justify-content: center; /* Centraliza os itens */
             align-items: center;   /* Alinha verticalmente */
-            z-index: 1000;         /* Garante que fique sobre outros elementos */
+            z-index: 2000;         /* Garante que fique sobre outros elementos */
         
         }
 
         
+        
+
     </style>
 
 <body>
     
-    <div class="novo">
-        <span>
-            <a href="novo.html"><i class="bi bi-search"></i></a>
-        </span>
-
-        <!--aqui vai ser utilizado os styles-->
+    <div class="Inicio" id="name">
+        <input type="text" placeholder="Pesquisar...">
+        
+    </div>
+    <br>
+    <div class="cep">
+        <span><a href="cep.html"><i class="bi bi-geo-alt-fill"></i>Cep</a></span>
         <style>
-            .novo span {
-                color: black;
+            .cep {
                 text-align: end;
             }
-            .novo {
-                color: black;
-                text-align: end;
-                font-size: 18px;
+            .cep i{
+                color: #333;
+            }
+
+            .cep a {
+                text-decoration: none;
+                
             }
         </style>
     </div>
+
     <br>
     <!--aqui vai tar mostrando o tema quem somos nôs-->
 
