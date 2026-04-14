@@ -9,9 +9,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 <body>
-    <div class="pesquisa" id="name">
-        <label for="p"><span><i class="bi bi-search"></i></span></label>
-        <input type="text" placeholder="Pesquisar...">
+    <div class="pesquisa">
+        <input onkeyup="filtrar()"  type="text" id="pesquisa" placeholder="Pesquisar petshops...">
+
+        <ul id="listaprodutos" style="list-style-type: none; margin: 0; padding: 12px; width: 95%; align-items: center; display: contents;">
+          
+        </ul>
+      
 
         <!--aqui vai ter o estilo da pesquisa-->
         <style>
@@ -32,49 +36,37 @@
     </div><br>
 
 
-       <!--aqui vai ter os mapas -->
+<!--aqui vai ser o text-->
+  
 
-       
-
-  <h2>Escolha seu estado:</h2>
-
-  <select id="estado" onchange="irParaLink()">
-    <option value="">Selecione...</option>
-    <option value="https://maps.app.goo.gl/Qcnmu4HTiWtRYM7C8">Maranhão</option>
-    <option value="https://maps.app.goo.gl/BJEnKe8vTrNuJMXi8">São Paulo</option>
-    <option value="https://exemplo.com/rj">Rio de Janeiro</option>
-    <option value="https://exemplo.com/mg">Minas Gerais</option>
-  </select>
-
-  <script>
-    function irParaLink() {
-      var select = document.getElementById("estado");
-      var link = select.value;
-
-      if (link !== "") {
-        window.location.href = link;
-      }
-    }
-  </script>
+  <style>
+    body { font-family: Arial; text-align: center; }
+    input { width: 300px; padding: 10px; }
+    button { padding: 10px; cursor: pointer; }
+    #resultados { margin-top: 20px; }
+    .item { border-bottom: 1px solid #ccc; padding: 10px; }
+  </style>
 
 
-    
-   <script src="pets.com.js">
 
-        document.getElementById('name').addEventListener('keyup', function(e) {
-    const term = e.target.value.toLowerCase(); // Captura e converte p/ minúsculas
-    const items = document.getElementsByClassName('item');
-    
-    Array.from(items).forEach(function(item) {
-        const itemName = item.textContent.toLowerCase();
-        // Verifica se o item contém o texto pesquisado
-        if (itemName.indexOf(term) != -1) {
-            item.style.display = 'block'; // Mostra
-        } else {
-            item.style.display = 'none'; // Oculta
-        }
+
+<script src="pets.com.js">
+
+    fetch('https://fakestoreapi.com/products?limit=4')
+  .then(response => response.json())
+  .then((data) => {
+    console.log(data);
+    const ul = document.getElementById('listaprodutos');
+    data.forEach((item) => {
+      const li = document.createElement('li');
+      li.innerHTML = ` <a href="#" style="text-decoration: none; color: black;">
+              <img src="${item.image}" alt="2" width="50" height="50">
+              <span>${item.title}</span>
+            </a>`;
+      ul.appendChild(li);
     });
-});
-   </script>
-</body>
+  });
+
+</script>
+
 </html>
