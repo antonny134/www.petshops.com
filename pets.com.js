@@ -5,7 +5,7 @@ fetch('https://fakestoreapi.com/products')
     const ul = document.getElementById('listaprodutos');
     data.forEach((item) => {
       const li = document.createElement('li');
-      li.innerHTML = ` <a href="#" style="text-decoration: none; color: black;">
+      li.innerHTML = ` <a href="https://www.google.com/maps/@-3.6114971,-45.3463498,15z?entry=ttu" style="text-decoration: none; color: black;">
               <img src="${item.image}" alt="2" width="50" >
               <span>${item.title}</span>
             </a>`;
