@@ -8,26 +8,68 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
-<body>
-    <div class="pesquisa">
-        <input onkeyup="filtrar()"  type="text" id="pesquisa" placeholder="Pesquisar petshops...">
+  <style>
+    body{
+      margin: 0;
+      padding: 0;
+     
+    }
+      .buscar{
+        display: flex;
+        justify-content: center;
+        margin-top: 0px;
+        position: relative;
+      }
+    .pesquisa ul{
+      list-style-type: none;
+      padding: 0px;
+      margin: 0px;
+      width: 90%;
+      margin-left: calc(5%);
+      margin-top: 0px;
+      display: none;
+       position: absolute;
+    }
 
-        <ul id="listaprodutos" style="list-style-type: none; margin: 0; padding: 12px; width: 95%; align-items: center; display: contents;">
+    .pesquisa ul a:hover{
+      background-color: #eee;
+    }
+  </style>
+<body>
+   
+    <div class="buscar">
+       <input  id="myinput" onkeyup="filtrar()"  type="text" id="pesquisa" placeholder="Pesquisar petshops...">
+    </div>
+
+    <div class="pesquisa">
+       
+
+        <ul id="listaprodutos">
           
         </ul>
-      
+      <div class="subtitulo">
+        <p>nome</p>
+    </div>
 
         <!--aqui vai ter o estilo da pesquisa-->
         <style>
-            .pesquisa input {
-                
+            .buscar input{
+                margin-top: 10px;
                 border-radius: 22px;
                 border-color: black;
+                
             }
-            .pesquisa{
-                text-align: center;
-                top: 0;
-                z-index: 1000;
+            .pesquisa li a{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                border: 1px solid #ccc;
+                background: #f6f6f6;
+                margin: 3px ;
+                padding: 0px;
+                list-style-type: none;
+             
+                
             }
         </style>
         

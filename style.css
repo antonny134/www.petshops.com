@@ -1,0 +1,44 @@
+body{
+      margin: 0;
+      padding: 0;
+     
+    }
+      .buscar{
+        display: flex;
+        justify-content: center;
+        margin-top: 0px;
+        position: relative;
+      }
+    .pesquisa ul{
+      list-style-type: none;
+      padding: 0px;
+      margin: 0px;
+      width: 90%;
+      margin-left: calc(5%);
+      margin-top: 0px;
+      display: block;
+       position: absolute;
+    }
+
+    .pesquisa ul a:hover{
+      background-color: #eee;
+    }
+
+    .buscar input{
+                margin-top: 10px;
+                border-radius: 22px;
+                border-color: black;
+                
+            }
+            .pesquisa li a{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                border: 1px solid #ccc;
+                background: #f6f6f6;
+                margin: 3px ;
+                padding: 0px;
+                list-style-type: none;
+             
+                
+            }
