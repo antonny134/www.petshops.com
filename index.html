@@ -21,7 +21,7 @@
         font: 'Outfit', sans-serif;
         }
         body{
-           margin:0px; padding: 20px;/*para deixa fixo */
+           margin:0px; padding: 0px;/*para deixa fixo */
         }
 
         .Inicio{
@@ -44,27 +44,55 @@
 
 <body>
     
-    <div class="Inicio" id="name">
-        <input type="text" placeholder="Pesquisar...">
-        
-    </div>
-    <br>
-    <div class="cep">
-        <span><a href="petshops.html"><i class="bi bi-geo-alt-fill"></i>Cep</a></span>
+    <div class="Inicio">
+        <h3>PETS.COM</h3>
+        <!--petmaps-->
+            <div class="maps">
+                 <span><a href="petshops.html">PetMaps</a></span>
+            </div>
+
+        <!--aqui vai ter o style-->
         <style>
-            .cep {
+            .Inicio h3{
+                color: white;
+                font-size: 20px;
+                
+            }
+            h3{
+                font-weight: bold;
+            }
+             .maps {
+              position: absolute;
+              right: 20px;
+            }
+             .maps a{
+              color: white;
                 text-align: end;
             }
-            .cep i{
-                color: #333;
+
+            .maps a:hover {
+                text-decoration: underline;
+                color: blue;
+            }
+             .maps span {
+              font-size: 16px;
+                padding-left: 20px;
+            }
+            .maps a{
+              color: white;
+                text-align: end;
+              
+               
             }
 
-            .cep a {
+            .maps a {
                 text-decoration: none;
                 
             }
         </style>
     </div>
+    <br>
+    
 
     <br>
     <!--aqui vai tar mostrando o tema quem somos nôs-->
@@ -86,6 +114,9 @@
                 font-size: 19px;
             }
         </style>
+        <div class="subtitulo">
+            <p><b>Os Mais Acessados:</b></p>
+        </div><br>
     <!--aqui vai ter os sites a baixo -->
     <div class="item">
         <span >
@@ -180,22 +211,6 @@
         </style>
    
 
-    <!--aqui vai ter o script-->
-    <script src="pets.com.js">
-        document.getElementById('name').addEventListener('keyup', function(e) {
-    const term = e.target.value.toLowerCase(); // Captura e converte p/ minúsculas
-    const items = document.getElementsByClassName('item');
-    
-    Array.from(items).forEach(function(item) {
-        const itemName = item.textContent.toLowerCase();
-        // Verifica se o item contém o texto pesquisado
-        if (itemName.indexOf(term) != -1) {
-            item.style.display = 'block'; // Mostra
-        } else {
-            item.style.display = 'none'; // Oculta
-        }
-    });
-});
-    </script>
+   
 </body>
 </html>

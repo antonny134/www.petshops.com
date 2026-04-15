@@ -1,4 +1,4 @@
-fetch('https://fakestoreapi.com/products')
+fetch('https://fakestoreapi.com/products?limit=5')
   .then(response => response.json())
   .then((data) => {
     console.log(data);
@@ -14,7 +14,7 @@ fetch('https://fakestoreapi.com/products')
   });
 
   function filtrar() {
-    var input, filter, ul, li, a, i, txtValue, count = 0;
+    var input, filter, ul, li, a, i, txtValue,span;count = 0;
 
     input = document.getElementById('myinput');
     ul = document.getElementById('listaprodutos');
@@ -42,4 +42,5 @@ fetch('https://fakestoreapi.com/products')
     } else {
       ul.style.display = 'block';
     }
+   
   }
