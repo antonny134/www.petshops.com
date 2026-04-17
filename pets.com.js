@@ -1,20 +1,22 @@
-fetch('https://fakestoreapi.com/products?limit=5')
+ const url = ('https://fakestoreapi.com/products/');
+ fetch(url)
   .then(response => response.json())
   .then((data) => {
     console.log(data);
     const ul = document.getElementById('listaprodutos');
     data.forEach((item) => {
       const li = document.createElement('li');
-      li.innerHTML = ` <a href="https://www.google.com/maps/@-3.6114971,-45.3463498,15z?entry=ttu" style="text-decoration: none; color: black;">
+      li.innerHTML = ` <a href="https://google.com/search?q=${item.title}&tbm=shop" style="text-decoration: none; color: black;">
               <img src="${item.image}" alt="2" width="50" >
               <span>${item.title}</span>
+              <span style="float: right; color: green;">$${item.price}</span>
             </a>`;
       ul.appendChild(li);
     });
   });
 
   function filtrar() {
-    var input, filter, ul, li, a, i, txtValue,span;count = 0;
+    var input, filter, ul, li, a, i, txtValue, count = 0;
 
     input = document.getElementById('myinput');
     ul = document.getElementById('listaprodutos');
@@ -42,5 +44,4 @@ fetch('https://fakestoreapi.com/products?limit=5')
     } else {
       ul.style.display = 'block';
     }
-   
   }
