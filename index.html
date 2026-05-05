@@ -45,75 +45,82 @@
 <body>
     
     <div class="Inicio">
-        <h3>PETS.COM</h3>
-        <!--petmaps-->
-            <div class="maps">
-                 <span><a href="petshops.html"><i class="bi bi-globe"></i></a></span>
-            </div>
+    <div class="catalogo">
 
-        <!--aqui vai ter o style-->
-        <style>
-            .Inicio h3{
-                color: white;
-                font-size: 20px;
-                
-            }
-            h3{
-                font-weight: bold;
-            }
-             .maps {
-              position: absolute;
-              right: 20px;
-            }
-             .maps a{
-              color: white;
-                text-align: end;
-            }
+        <div class="item-menu">
+            <a href="#"><i class="bi bi-list"></i></a>
+        </div>
 
-            .maps a:hover {
-                text-decoration: underline;
-                color: blue;
-            }
-             .maps span {
-              font-size: 16px;
-                padding-left: 20px;
-            }
-            .maps a{
-              color: white;
-                text-align: end;
-              
-               
-            }
+        <div class="tema">
+            <h3 style="color: white;">Petshops.com</h3>
+        </div>
 
-            .maps a {
-                text-decoration: none;
-                
-            }
-        </style>
     </div>
-    <br>
-    
+</div>
 
-    <br>
-    <!--aqui vai tar mostrando o tema quem somos nôs-->
+<div class="catlogos catlogos-excluir">
+    <ul>
+        
+        <li><a href="Pesquisar Petshops.html"><i class="bi bi-search"></i> Procurar</a></li>
+        <br>
+        <li><a href="Lojas Perto De Mim.html"><i class="bi bi-shop"></i> Lojas</a></li>
+        <br>
+        <li><a href="#"><i class="bi bi-gear"></i> Configuração</a></li>
+    </ul>
+</div>
 
-        <!--aqui vai ter o style do ajuda-->
-        <style>
-            .ajuda {
-                text-align: end;
-                display: flexbox;
-            }
+<style>
+    .item-menu{
+        font-size: 19px;
+        position: fixed;
+        top: 1px;
+        left: 10px;
+        cursor: pointer;
+        z-index: 1000;
+    }
+    .catlogos ul {
+       margin-top: 28px;
+    }
+    .item-menu a {
+        color: white;
+        display: block;
+    }
+    a{
+    color: white;
+    text-decoration: none;
+    font-family: 'Courier New', Courier, monospace;
+   }
+   .catlogos li:hover{
+    padding: 19px;
+    background: gray;
+    transition: all 0.2s;
+    border-radius: 7px;
+   }
+    .catlogos {
+        background: #333;
+        width: 230px; /* corrigido */
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        transition: all 0.3s;
+        border-right: 2px solid white;
+        
+    }
 
-            .ajuda a {
-                color: black;
-                text-decoration: none;
-                font-size: 21px;
-            }
+    .catlogos-excluir{
+        margin-left: -230px;
+    }
+</style>
 
-            .ajuda label {
-                font-size: 19px;
-            }
-        </style>
+<script>
+    const itemenu = document.getElementsByClassName("item-menu")[0];
+    const catlogos = document.getElementsByClassName("catlogos")[0];
+
+    itemenu.addEventListener("click", function(){
+        catlogos.classList.toggle("catlogos-excluir");
+    });
+</script>
         <div class="subtitulo">
             <p><b>Os Mais Acessados:</b></p>
         </div><br>
