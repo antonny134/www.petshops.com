@@ -39,7 +39,7 @@
     <div class="buscar">
        <input  id="myinput" onkeyup="filtrar()"  type="text" id="pesquisa" placeholder="Pesquisar petshops...">
     </div>
-
+    <div id="resultados"></div>
     <div class="pesquisa">
        
         <li></li>
@@ -74,7 +74,7 @@
         
     </div><br>
 
-
+    <div id="resultados"></div>
 <!--aqui vai ser o text-->
   
 
@@ -85,14 +85,267 @@
     #resultados { margin-top: 20px; }
     .item { border-bottom: 1px solid #ccc; padding: 10px; }
   </style>
+<!--script-->
+<script>
+const sitesPetsBrasil = [
+ 
+  {
+    nome: "Cobasi",
+    categoria: "Petshop",
+    estado: "São Paulo (SP)",
+    site: "https://www.cobasi.com.br",
+    mapa: "https://www.google.com/maps/search/?api=1&query=Cobasi+São+Paulo+SP"
+  },
+  {
+    nome: "Petz",
+    categoria: "Petshop",
+    estado: "São Paulo (SP)",
+    site: "https://www.petz.com.br",
+    mapa: "https://www.google.com/maps/search/?api=1&query=Petz+São+Paulo+SP"
+  },
+  {
+    nome: "Petlove",
+    categoria: "Petshop",
+    estado: "São Paulo (SP)",
+    site: "https://www.petlove.com.br",
+    mapa: "https://www.google.com/maps/search/?api=1&query=Petlove+São+Paulo+SP"
+  },
+  {
+    nome: "DogHero",
+    categoria: "Hospedagem e Cuidados",
+    estado: "São Paulo (SP)",
+    site: "https://www.doghero.com.br",
+    mapa: "https://www.google.com/maps/search/?api=1&query=DogHero+São+Paulo+SP"
+  },
+  {
+    nome: "Pet Anjo",
+    categoria: "Passeadores e Babás",
+    estado: "São Paulo (SP)",
+    site: "https://www.petanjo.com",
+    mapa: "https://www.google.com/maps/search/?api=1&query=Pet+Anjo+São+Paulo+SP"
+  },
+  {
+    nome: "Pet Center Marginal",
+    categoria: "Petshop",
+    estado: "São Paulo (SP)",
+    site: "https://www.petcentermarginal.com.br",
+    mapa: "https://www.google.com/maps/search/?api=1&query=Pet+Center+Marginal+São+Paulo+SP"
+  },
+  {
+    nome: "Petland Brasil",
+    categoria: "Petshop e Franquia",
+    estado: "São Paulo (SP)",
+    site: "https://www.petlandbrasil.com.br",
+    mapa: "https://www.google.com/maps/search/?api=1&query=Petland+Brasil+São+Paulo+SP"
+  },
+  {
+    nome: "Agroline",
+    categoria: "Produtos Pet",
+    estado: "Goiás (GO)",
+    site: "https://www.agroline.com.br",
+    mapa: "https://www.google.com/maps/search/?api=1&query=Agroline+Goiás"
+  },
+  {
+    nome: "Petzoo",
+    categoria: "Petshop",
+    estado: "Paraná (PR)",
+    site: "https://www.petzoo.com.br",
+    mapa: "https://www.google.com/maps/search/?api=1&query=Petzoo+Paraná"
+  },
+  {
+    nome: "Mundo Animal",
+    categoria: "Clínica Veterinária",
+    estado: "Santa Catarina (SC)",
+    site: "https://www.mundoanimal.vet.br",
+    mapa: "https://www.google.com/maps/search/?api=1&query=Mundo+Animal+Santa+Catarina"
+  },
+  {
+    nome: "Meu Pet Club",
+    categoria: "Assinatura Pet",
+    estado: "Rio de Janeiro (RJ)",
+    site: "https://www.meupetclub.com.br",
+    mapa: "https://www.google.com/maps/search/?api=1&query=Meu+Pet+Club+Rio+de+Janeiro"
+  },
+  {
+    nome: "Cão Cidadão",
+    categoria: "Adestramento",
+    estado: "São Paulo (SP)",
+    site: "https://www.caocidadao.com.br",
+    mapa: "https://www.google.com/maps/search/?api=1&query=Cão+Cidadão+São+Paulo+SP"
+  },
+  {
+    nome: "Vetnil",
+    categoria: "Medicamentos Veterinários",
+    estado: "São Paulo (SP)",
+    site: "https://www.vetnil.com.br",
+    mapa: "https://www.google.com/maps/search/?api=1&query=Vetnil+São+Paulo+SP"
+  },
+  {
+    nome: "Special Dog",
+    categoria: "Ração Animal",
+    estado: "São Paulo (SP)",
+    site: "https://www.specialdog.com.br",
+    mapa: "https://www.google.com/maps/search/?api=1&query=Special+Dog+São+Paulo+SP"
+  },
+  {
+    nome: "Premier Pet",
+    categoria: "Ração Premium",
+    estado: "São Paulo (SP)",
+    site: "https://www.premierpet.com.br",
+    mapa: "https://www.google.com/maps/search/?api=1&query=Premier+Pet+São+Paulo+SP"
+  },
+  {
+    nome: "GranPlus",
+    categoria: "Alimentos para Pets",
+    estado: "Paraná (PR)",
+    site: "https://www.granplus.com.br",
+    mapa: "https://www.google.com/maps/search/?api=1&query=GranPlus+Paraná"
+  },
+  {
+    nome: "Faro",
+    categoria: "Plano de Saúde Pet",
+    estado: "São Paulo (SP)",
+    site: "https://www.faro.pet",
+    mapa: "https://www.google.com/maps/search/?api=1&query=Faro+Pet+São+Paulo+SP"
+  },
+  {
+    nome: "Guapeco",
+    categoria: "Plano Veterinário",
+    estado: "São Paulo (SP)",
+    site: "https://www.guapeco.com.br",
+    mapa: "https://www.google.com/maps/search/?api=1&query=Guapeco+São+Paulo+SP"
+  }
 
+];
 
+const ul = document.getElementById("listaprodutos");
+const pesquisa = document.getElementById("pesquisa");
 
+// função para mostrar os petshops
+function mostrarPetshops(lista) {
 
-<script src="pts.js">
+  ul.innerHTML = "";
 
-  
+  lista.forEach(item => {
 
+    const li = document.createElement("li");
+
+    li.innerHTML = `
+      <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:15px;
+        border:1px solid #ccc;
+        border-radius:12px;
+        margin-bottom:12px;
+        background:white;
+        box-shadow:0 2px 6px rgba(0,0,0,0.1);
+      ">
+
+        <div style="display:flex; flex-direction:column; gap:5px;">
+
+          <span style="font-size:20px;">
+            <strong>${item.nome}</strong>
+          </span>
+
+          <span style="
+            color:#777;
+            font-size:14px;
+          ">
+            🐾 ${item.categoria}
+          </span>
+
+          <a href="${item.mapa}" target="_blank"
+            style="
+              text-decoration:none;
+              color:#555;
+              margin-top:5px;
+              font-size:14px;
+            ">
+            📍 ${item.estado}
+          </a>
+
+        </div>
+
+        <a href="${item.site}" target="_blank"
+          style="
+            text-decoration:none;
+            background:#4CAF50;
+            color:white;
+            padding:10px 16px;
+            border-radius:8px;
+            font-weight:bold;
+            transition:0.3s;
+          "
+          onmouseover="this.style.background='#45a049'"
+          onmouseout="this.style.background='#4CAF50'"
+        >
+          Visitar Site
+        </a>
+
+      </div>
+    `;
+
+    ul.appendChild(li);
+  });
+}
+
+// mostrar todos ao abrir
+mostrarPetshops(sitesPetsBrasil);
+
+// pesquisar petshops
+pesquisa.addEventListener("input", () => {
+
+  const valor = pesquisa.value.toLowerCase();
+
+  const filtrados = sitesPetsBrasil.filter(item =>
+    item.nome.toLowerCase().includes(valor) ||
+    item.estado.toLowerCase().includes(valor) ||
+    item.categoria.toLowerCase().includes(valor)
+  );
+
+  mostrarPetshops(filtrados);
+});
+
+// mostrar todos no início
+mostrarPetshops(petshops);
+
+// pesquisar pelo nome do petshop
+pesquisa.addEventListener("input", () => {
+
+  const valor = pesquisa.value.toLowerCase();
+
+  const filtrados = petshops.filter(item =>
+    item.nome.toLowerCase().includes(valor)
+  );
+
+  mostrarPetshops(filtrados);
+
+});
+
+// função de busca
+function filtrar() {
+  const input = document.getElementById('myinput');
+  const filter = input.value.toUpperCase();
+  const li = ul.getElementsByTagName('li');
+
+  let count = 0;
+
+  for (let i = 0; i < li.length; i++) {
+    const a = li[i].getElementsByTagName('a')[0];
+    const txtValue = a.textContent || a.innerText;
+
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = '';
+      count++;
+    } else {
+      li[i].style.display = 'none';
+    }
+  }
+
+  ul.style.display = count > 0 ? 'block' : 'none';
+}
 </script>
 
-</html>
+</html>  

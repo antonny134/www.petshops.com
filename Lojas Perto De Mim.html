@@ -4,8 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lojas Perto De Mim</title>
+    <!-- Adicionando Bootstrap Icons para o ícone de loja -->
+    <link rel="stylesheet" href="https://jsdelivr.net">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .tema { background: #333; padding: 10px; }
+        .tema h3 { text-align: center; font-family: 'Courier New', Courier, monospace; font-size: 20px; color: white; }
+        .lojas { padding: 15px; }
+        select { padding: 8px; border-radius: 6px; margin-right: 10px; margin-bottom: 10px; }
+        #lista-petshops { margin-top: 20px; list-style: none; font-family: sans-serif; }
+        #lista-petshops li { padding: 15px; border-bottom: 1px solid #ddd; }
+        .loading { color: #666; font-style: italic; }
+        .endereco { font-size: 0.9em; color: #555; display: block; }
+    </style>
 </head>
 <body>
-    
+    <nav class="tema">
+        <h3>Lojas</h3>
+    </nav>
+
+    <nav class="lojas">
+        <select id="estado">
+            <option value="">Selecione o estado</option>
+        </select>
+        <select id="cidade">
+            <option value="">Selecione a cidade</option>
+        </select>
+        <ul id="lista-petshops"></ul>
+    </nav>
+
+    <!-- Elemento invisível necessário para o Google Places Service -->
+    <div id="map" style="display:none"></div>
+
+    <!-- SUBSTITUA 'SUA_CHAVE_AQUI' PELA SUA CHAVE DA API DO GOOGLE -->
+    <script src="https://api.apify.com/v2/actor-runs/E0jkqKssWLvKFavqG?token=apify_api_gO8BTfimjx86C8Nz4ySCL1bAnwRAM80ivcdj"></script>
+
+    <script>
+        const estadoSelect = document.getElementById("estado");
+        const cidadeSelect = document.getElementById("cidade");
+        const listaPetshops = document.getElementById("lista-petshops");
+        let service;
+
+        // Inicializa o serviço do Google
+        function initService() {
+            service = new google.maps.places.PlacesService(document.getElementById('map'));
+        }
+
+        // Carregar Estados
+        fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
+            .then(res => res.json())
+            .then(estados => {
+                estados.sort((a, b) => a.nome.localeCompare(b.nome));
+                estados.forEach(estado => {
+                    let option = document.createElement("option");
+                    option.value = estado.sigla;
+                    option.textContent = estado.nome;
+                    estadoSelect.appendChild(option);
+                });
+            });
+
+        // Carregar Cidades
+        estadoSelect.addEventListener("change", function() {
+            let estadoSigla = this.value;
+            cidadeSelect.innerHTML = "<option>Carregando cidades...</option>";
+            fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estadoSigla}/municipios`)
+                .then(res => res.json())
+                .then(cidades => {
+                    cidadeSelect.innerHTML = "<option value=''>Selecione a cidade</option>";
+                    cidades.forEach(cidade => {
+                        let option = document.createElement("option");
+                        option.value = `${cidade.nome}, ${estadoSigla}`;
+                        option.textContent = cidade.nome;
+                        cidadeSelect.appendChild(option);
+                    });
+                });
+        });
+
+        // Buscar Petshops usando Google Places
+        cidadeSelect.addEventListener("change", function() {
+            let buscaQuery = this.value;
+            if (!buscaQuery) return;
+
+            listaPetshops.innerHTML = "<li class='loading'>Buscando petshops em " + buscaQuery + "...</li>";
+
+            const request = {
+                query: `petshops em ${buscaQuery}`,
+                fields: ['name', 'formatted_address', 'geometry'],
+            };
+
+            service.textSearch(request, (results, status) => {
+                listaPetshops.innerHTML = "";
+                
+                if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+                    results.forEach(place => {
+                        let li = document.createElement("li");
+                        li.innerHTML = `
+                            <strong><i class="bi bi-shop"></i> ${place.name}</strong>
+                            <span class="endereco">${place.formatted_address}</span>
+                        `;
+                        listaPetshops.appendChild(li);
+                    });
+                } else {
+                    listaPetshops.innerHTML = "<li>Nenhum petshop encontrado ou erro na API.</li>";
+                }
+            });
+        });
+
+        // Rodar ao carregar a página
+        window.onload = initService;
+    </script>
 </body>
 </html>

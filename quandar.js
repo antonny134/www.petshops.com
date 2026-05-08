@@ -1,0 +1,82 @@
+
+
+const url ='https://cms.petsrs.com.br/api/abrigos?populate=cidade&pagination[pageSize]=20&pagination[page]=1&fields[0]=Nome&fields[1]=Endereco&';
+
+fetch(url)
+  .then(response => response.json())
+  .then((data) => {
+    console.log(data);
+    const ul = document.getElementById('listaprodutos');
+    data.forEach(function(item) {
+      const li = document.createElement('li');
+      li.innerHTML = ` <a href="https://amazon.com/s?k=${item.title}" style="text-decoration: none; color: black;">
+              <img src="${item.image}" alt="2" width="50" >
+              <span>${item.title}</span>
+              
+              <span style="float: right; color: green;">$${item.price}</span>
+            </a>`;
+      ul.appendChild(li);
+    });
+  });
+
+  function filtrar() {
+    var input, filter, ul, li, a, i, txtValue, count = 0;
+
+    input = document.getElementById('myinput');
+    ul = document.getElementById('listaprodutos');
+
+    //filtrar o valor do input
+    filter = input.value.toUpperCase();
+
+    //pegar os itens da lista (li)
+    li = ul.getElementsByTagName('li');
+    //loop para comparar o valor do input com os itens da lista
+    for (i = 0; i < li.length; i++) {
+      a = li[i].getElementsByTagName('a')[0];
+      txtValue = a.textContent || a.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = '';
+        count++;
+      } else {
+        li[i].style.display = 'none';
+      }
+      count++;
+    }
+
+    if (count === 0) {
+      ul.style.display = 'none';
+    } else {
+      ul.style.display = 'block';
+    }
+  }
+
+  function filtrar() {
+    var input, filter, ul, li, a, i, txtValue, count = 0;
+
+    input = document.getElementById('myinput');
+    ul = document.getElementById('listaprodutos');
+
+    //filtrar o valor do input
+    filter = input.value.toUpperCase();
+
+    //pegar os itens da lista (li)
+    li = ul.getElementsByTagName('li');
+    //loop para comparar o valor do input com os itens da lista
+    for (i = 0; i < li.length; i++) {
+      a = li[i].getElementsByTagName('a')[0];
+      txtValue = a.textContent || a.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = '';
+        count++;
+      } else {
+        li[i].style.display = 'none';
+      }
+      count++;
+    }
+
+    if (count === 0) {
+      ul.style.display = 'none';
+    } else {
+      ul.style.display = 'block';
+    }
+  }
